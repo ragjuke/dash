@@ -1,0 +1,47 @@
+.dot-carousel {
+    position: relative;
+    left: -9999px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    box-shadow: 9984px 0 0 0 #9880ff, 9999px 0 0 0 #9880ff, 10014px 0 0 0 #9880ff;
+    animation: dotCarousel 1.5s infinite linear;
+  }
+
+  .apexcharts-canvas {
+    margin: 0 auto;
+}
+
+.paybtn {
+  color: #e8e8e8;
+  background: rgb(255, 60, 60) ;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+
+}
+
+.paybtn:hover {
+  color: #fff;
+  background: rgb(255, 0, 0);
+}
+
+.paybtn:disabled {
+  color: #fff;
+  background: rgb(255, 156, 156) ;
+
+}
+  
+  @keyframes dotCarousel {
+    0% {
+      box-shadow: 9984px 0 0 -1px #9880ff, 9999px 0 0 1px #9880ff, 10014px 0 0 -1px #9880ff;
+    }
+    50% {
+      box-shadow: 10014px 0 0 -1px #9880ff, 9984px 0 0 -1px #9880ff, 9999px 0 0 1px #9880ff;
+    }
+    100% {
+      box-shadow: 9999px 0 0 1px #9880ff, 10014px 0 0 -1px #9880ff, 9984px 0 0 -1px #9880ff;
+    }
+  }
