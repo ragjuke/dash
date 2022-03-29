@@ -104,7 +104,35 @@ export default function AdminUserAccount(props) {
     [setValue]
   );
 
-  return (
+  return (<>
+
+<Grid container spacing={3}>
+
+        <Grid item xs={12} md={12}>
+          <Card sx={{ p: 3 }}>
+            <Box
+              sx={{
+                display: 'grid',
+                rowGap: 3,
+                columnGap: 2,
+                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+              }}
+            >
+              <Typography><Typography color="red">Balance:</Typography> <strong>${user?.balance}</strong></Typography>
+              <Typography><Typography color="red">Level:</Typography> <strong>{user?.level_name}</strong></Typography>
+              <Typography><Typography color="red">User Level Data:</Typography> <strong>{user?.level_members} members (${user?.level_amount})</strong></Typography>
+              
+            </Box>
+
+          </Card>
+        </Grid>
+      </Grid>
+
+      <br/>
+
+
+
+
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
 
@@ -152,5 +180,6 @@ export default function AdminUserAccount(props) {
         </Grid>
       </Grid>
     </FormProvider>
+    </>
   );
 }

@@ -12,17 +12,18 @@ module.exports = withTM({
   swcMinify: false,
   trailingSlash: true,
   env: {
-    // HOST_API_KEY: 'http://localhost:8000',
-    HOST_API_KEY: 'https://lapi.illbytes.com',
 
 
     // My New Settings and Configs
-    REACT_APP_USE_PHOTO: '',
+    REACT_APP_USE_PHOTO: '/public',
     // "/public" when on server and "EMPTY" when on local
+
+    HOST_API_KEY: 'https://lapi.illbytes.com',
     REACT_APP_WEB_APP_URL: 'https://r4.illbytes.com', 
     REACT_APP_API_URL: 'https://lapi.illbytes.com', 
     REACT_APP_HOMEBASE_URL: 'https://r3.illbytes.com',
 
+    // HOST_API_KEY: 'http://localhost:8000',
     // REACT_APP_WEB_APP_URL: 'http://localhost:5002',
     // REACT_APP_API_URL: 'http://localhost:8000',
     // REACT_APP_HOMEBASE_URL: 'http://localhost:5001',

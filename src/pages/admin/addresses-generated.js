@@ -87,8 +87,6 @@ export default function TransList() {
           //Remove Loading
           setLoadingData(false);
           console.log(data);
-
-
         }, 300)
 
       })
@@ -141,7 +139,7 @@ export default function TransList() {
               ]}
               action={
                   <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} spacing={0.5}>
-                      <Button size="small" variant="contained" color="info" startIcon={<Iconify icon={'bx:border-all'} />} onClick={e=> changeFilter(e, 'all')} >All</Button>
+                      <Button size="small" variant="contained" color="info" startIcon={<Iconify icon={'bx:border-all'} />} onClick={e=> changeFilter(e, 'all')}>All</Button>
 
                       <Button size="small" variant="contained" color="success" startIcon={<Iconify icon={'carbon:task-complete'} />} sx={{ margin: '10px 0' }} onClick={e=> changeFilter(e, 'complete')} > Complete </Button>
                       <Button size="small" variant="contained" color="warning" startIcon={<Iconify icon={'carbon:pending'} />} sx={{ margin: '10px 0' }} onClick={e=> changeFilter(e, 'pending')} > Pending </Button>

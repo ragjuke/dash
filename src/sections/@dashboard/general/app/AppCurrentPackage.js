@@ -67,7 +67,6 @@ export default function AppCurrentPackage( { txnData } ) {
   if(next_due >= 0){
       return "Last Pack Complete";
   }else{
-      
       return amount +' USD';
   }
 
@@ -145,7 +144,11 @@ export default function AppCurrentPackage( { txnData } ) {
         
       
         {/* <ReactApexChart type="donut" series={CHART_DATA} options={chartOptions} height={280} /> */}
-        <ReactApexChart type="radialBar" series={(txnData.last_package_data && txnData.last_package_helper) ? [( (finalDay()/ (txnData.last_package_helper.time_hours/24).toFixed(2) ).toFixed(2) * 100 )] : 0 } options={chartOptions} width={150} height={150}  sx={{ margin: "0 auto !important" }}/>
+        { txnData.hasOwnProperty('last_package_data') ?
+          <ReactApexChart type="radialBar" series={(txnData.last_package_data && txnData.last_package_helper) ? [( (finalDay()/ (txnData.last_package_helper.time_hours/24).toFixed(2) ).toFixed(2) * 100 ).toFixed(2)] : 0 } options={chartOptions} width={150} height={150}  sx={{ margin: "0 auto !important" }}/>
+        :
+        <Typography sx={{ padding: '20px', textAlign: 'center', color: 'red' }}><h3>No Plan Running</h3></Typography>
+        }
 
 
 

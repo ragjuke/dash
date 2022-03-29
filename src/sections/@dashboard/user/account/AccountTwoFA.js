@@ -71,12 +71,11 @@ export default function AccountTwoFA() {
   const confirmPass = async (id) => {
 
     let password = document.getElementById("password").value;
-    // console.log(password);
 
              await axios.post(`/user/confirm-password`, {password: password})
               .then(response => {
                 setOpen(false);
-                return console.log(response);
+                return;
               })
               .catch(error => {
                 console.log(error);
@@ -86,22 +85,26 @@ export default function AccountTwoFA() {
                 return;
               });
           
+              console.log(twoFactor);
 
           if(twoFactor == 1){
 
             await axios.post('/user/two-factor-authentication', {
             } ).then(response => {
-                // setTwoFactor(1);
+                // Enqueue Here
+                runEnqueue(1);
             }).catch((error) => { });
 
+          } else if(twoFactor == 2){
+                // Enqueue Here
+                runEnqueue(2);
           } else {
             await axios.delete('/user/two-factor-authentication', {
             } ).then(response => {
-                // setTwoFactor(1);
+                // Enqueue Here
+                runEnqueue(0);
             }).catch((error) => { });
-          }
-          
-     
+          } 
   
   }
 
@@ -113,20 +116,17 @@ export default function AccountTwoFA() {
             await axios.post('/user/two-factor-authentication', {
             } ).then(response => {
                 setTwoFactor('1');
+                runEnqueue(1);
             }).catch((error) => {
-                console.log();
                 setTwoFactor('1');
 
                 if(error.message === "Password confirmation required."){
-                  console.log('requires password');
-                  // confirmPass();
                   setOpen(true);
                   return;
                 }
 
                 // if(error.response.status === 423){
                 //     console.log('requires password');
-                //     // confirmPass();
                 //     setOpen(true);
                 //     return;
                 // }
@@ -138,21 +138,25 @@ export default function AccountTwoFA() {
             await axios.delete('/user/two-factor-authentication', {
             }).then(response => {
               console.log('we are deleting');
-                setTwoFactor('0');
+
+                // Enqueue Here
+                if(x == 2){ setTwoFactor('2'); runEnqueue(2); } else { setTwoFactor('0'); runEnqueue(0); }
+
             }).catch((error) => {
                 console.log(error);
                 setTwoFactor('0');
 
+                // Enqueue Here
+                if(x == 2){ setTwoFactor('2'); } else { setTwoFactor('0'); }
+
                 // if(error.response.status === 423){
                 //     console.log('requires password');
-                //     confirmPass();
                 //     return;
                 // }
                 if(error.message === "Password confirmation required."){
                   console.log('requires password');
-                  // confirmPass();
                   setOpen(true);
-                  return;
+                  return 'password';
                 }
                 // Display an info toast with no title
                 setOpen(false);
@@ -203,9 +207,30 @@ const showCodes = ()=> {
 }
 
 
+const runEnqueue = async (x) => {
+
+  await axios.get('/sanctum/csrf-cookie').then(response => {
+
+    axios.post('/api/user/twofa/change', {type: x
+       } ).then(response => {
+           console.log(response);
+       }).catch((error) => { });
+
+ });
+     if(x == 1){
+        enqueueSnackbar('2FA Updated to Authenticator!');
+     } else if (x == 2){
+        enqueueSnackbar('2FA Updated to Email Verification!');
+     } else {
+        enqueueSnackbar('2FA Turned Off!');
+     }
+
+}
+
+
   const onSubmit = async (data) => {
 
-    console.log(data);
+    // console.log(data);
     let datafa = 0;
     if(data.twofa === 'Email Code' ){
       datafa = 2;
@@ -219,45 +244,11 @@ const showCodes = ()=> {
                   if(datafa == 1){
                     await authEnable(1);
 
-                    await axios.get('/sanctum/csrf-cookie').then(response => {
-
-                       axios.post('/api/user/twofa/change', {type: 1
-                          } ).then(response => {
-                              console.log(response);
-                          }).catch((error) => { });
-
-                    });
-                        enqueueSnackbar('2FA Updated to Authenticator!');
-
-                    
-                  }else if(datafa == 2){
+                  } else if(datafa == 2){
                     await authEnable(2);
-                    await axios.get('/sanctum/csrf-cookie').then(response => {
-                    
-                          // localStorage.setItem('isLoggedIn', true);
-
-                           axios.post('/api/user/twofa/change', {type: 2
-                          } ).then(response => {
-                              console.log(response);
-                          }).catch((error) => { });
-
-                        });
-
-                        enqueueSnackbar('2FA Updated to Email Verification!');
-                  
                   
                   } else {
                     await authEnable(0);
-                    await axios.get('/sanctum/csrf-cookie').then(response => {
-
-                       axios.post('/api/user/twofa/change', {type: 0
-                          } ).then(response => {
-                              console.log(response);
-                          }).catch((error) => { });
-
-                    });
-
-                    enqueueSnackbar('2FA Turned Off!');
 
                   }
 
