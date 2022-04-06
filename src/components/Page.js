@@ -11,7 +11,7 @@ import React from 'react';
 const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
   <>
     <Head>
-      <title>{`${title} | SiteName`}</title>
+      <title>{`${title} | ${process.env.REACT_APP_WEB_APP_NAME}`}</title>
       {meta}
     </Head>
 
