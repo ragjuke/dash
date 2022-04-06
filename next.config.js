@@ -18,7 +18,7 @@ module.exports = withTM({
     REACT_APP_USE_PHOTO: '/public',
     // "/public" when on server and "EMPTY" when on local
 
-    HOST_API_KEY: 'https://lapi.illbytes.com',
+    HOST_API_KEY: 'https://lpi.illbytes.com',
     REACT_APP_WEB_APP_URL: 'https://r4.illbytes.com', 
     REACT_APP_API_URL: 'https://lapi.illbytes.com', 
     REACT_APP_HOMEBASE_URL: 'https://r3.illbytes.com',
