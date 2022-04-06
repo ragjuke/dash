@@ -12,7 +12,8 @@ import Image from '../../../../components/Image';
 import Iconify from '../../../../components/Iconify';
 import Scrollbar from '../../../../components/Scrollbar';
 import { useEffect, useState } from 'react';
-import axios from '../../../../utils/axios';
+// import axios from '../../../../utils/axios';
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 

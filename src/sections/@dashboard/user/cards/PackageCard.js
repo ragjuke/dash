@@ -27,7 +27,7 @@ import { LoadingButton } from '@mui/lab';
 // ----------------------------------------------------------------------
 
 const OverlayStyle = styled('div')(({ theme }) => ({
-  ...cssStyles().bgBlur({ blur: 2, color: theme.palette.primary.darker }),
+  // ...cssStyles().bgBlur({ blur: 2, color: theme.palette.primary.darker }),
   top: 0,
   zIndex: 8,
   content: "''",
@@ -161,7 +161,7 @@ export default function PackageCard({ packageitem }) {
       </Box>
 
       <Typography variant="subtitle1" sx={{ mt: 6 }}>
-        {name} 
+        {name}
       </Typography>
 
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>

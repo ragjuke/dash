@@ -20,7 +20,7 @@ import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 // sections
 import { Deposit } from '../../../sections/@dashboard/e-commerce/checkout';
 
-import axios from '../../../utils/axios';
+import axios from 'axios';
 import React from 'react';
 
 

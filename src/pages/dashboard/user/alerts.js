@@ -20,6 +20,8 @@ import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 // sections
 
 import axios from '../../../utils/axios';
+import {axios as realxios} from 'axios';
+
 import { fDateTime } from 'src/utils/formatTime';
 
 import React from 'react';
@@ -96,24 +98,9 @@ export default function EcommerceCheckout() {
   const [allAlerts, setAllAlerts] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
 
-
-
-  const [btcPrice, setBtcPrice] = useState([]);
-
   
   
   useEffect(() => {
-    axios
-      .get('https://www.blockchain.com/ticker')
-      .then((response) => {
-        console.log((1 / response.data.USD.last).toFixed(8));
-        setBtcPrice((1 / response.data.USD.last).toFixed(8));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-
 
        // Update the Alert Notification for each User
        axios

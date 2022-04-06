@@ -134,10 +134,10 @@ export default function Settings() {
                     <SettingLayout />
                   </Stack>
 
-                  <Stack spacing={1.5}>
+                  {/* <Stack spacing={1.5}>
                     <Typography variant="subtitle2">Presets</Typography>
                     <SettingColorPresets />
-                  </Stack>
+                  </Stack> */}
 
                   <Stack spacing={1.5}>
                     <Typography variant="subtitle2">Stretch</Typography>

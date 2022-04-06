@@ -127,6 +127,14 @@ export default function AccountGeneral() {
       .catch((e) => console.log(e));
 
       enqueueSnackbar('Update success!');
+
+      setTimeout(()=>{
+        push(PATH_DASHBOARD.transactions.list);
+        location.reload();
+      }, 
+        1000);
+
+        
     } catch (error) {
       console.error(error);
     }
