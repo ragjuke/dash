@@ -20,10 +20,10 @@ module.exports = withTM({
 
     REACT_APP_WEB_APP_NAME: 'TestSite',
     
-    HOST_API_KEY: 'https://lapi.illbytes.com',
-    REACT_APP_WEB_APP_URL: 'https://r4.illbytes.com', 
-    REACT_APP_API_URL: 'https://lapi.illbytes.com', 
-    REACT_APP_HOMEBASE_URL: 'https://r3.illbytes.com',
+    // HOST_API_KEY: 'https://lapi.illbytes.com',
+    // REACT_APP_WEB_APP_URL: 'https://r4.illbytes.com', 
+    // REACT_APP_API_URL: 'https://lapi.illbytes.com', 
+    // REACT_APP_HOMEBASE_URL: 'https://r3.illbytes.com',
 
     HOST_API_KEY: 'http://localhost:8000',
     REACT_APP_WEB_APP_URL: 'http://localhost:5002',

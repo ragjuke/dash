@@ -39,7 +39,7 @@ export default function AppCopyRef({user}) {
       <CardHeader title="Referral Link" />
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3 }}>
-          <CopyClipboard value={`https://localhost:5002/ref/${user.username}`} />
+          <CopyClipboard value={`${process.env.REACT_APP_WEB_APP_URL}/ref/${user.username}`} />
         </Stack>
       </Scrollbar>
     </Card>
