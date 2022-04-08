@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // next
 import NextLink from 'next/link';
 // @mui
@@ -16,6 +16,7 @@ import { ResetPasswordDoubleForm } from '../../../../sections/auth/reset-passwor
 import { SentIcon } from '../../../../assets';
 import { useRouter } from 'next/router';
 import React from 'react';
+import axios from '../../../../utils/axios'
 
 // ----------------------------------------------------------------------
 
@@ -40,31 +41,50 @@ export default function ResetPassword() {
   
   const { id, hash } = router.query;
 
-//   console.log(id + ' '+ hash);
+  console.log(window.location.pathname + ' ' + id + ' '+ hash);
 
+const [logged, setLogged] = useState('0');
 
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
+
+  const apiPath = `${process.env.HOST_API_KEY}/email/verify?expires=${id}&signature=${hash}`;
+
+  useEffect(() => {
+    console.log(apiPath);
+    axios.get('/sanctum/csrf-cookie').then(response => {
+      axios.get(apiPath).then(response => {
+            console.log(response.status);
+            
+        }).catch((error) => {
+            console.log(error.response);
+            if (error.response != undefined && error.response.data.message == 'Unauthenticated.'){
+                setLogged('1');
+                // Display an info toast with no title
+                
+            }
+        });
+    });
+      
+}, []);
 
   return (
     <Page title="Change Password" sx={{ height: 1 }}>
       <RootStyle>
         <Container>
           <Box sx={{ maxWidth: 480, mx: 'auto' }}>
-            {!sent ? (
+            {logged == 1 ? (
               <>
                 <Typography variant="h3" paragraph>
-                  Update Your Password
+                  You are Logged Out
                 </Typography>
                 <Typography sx={{ color: 'text.secondary', mb: 5 }}>
-                  Kindly enter matching passwords below
+                  Login to your Account and try visiting the verification link again.
                 </Typography>
-
-                <ResetPasswordDoubleForm onSent={() => setSent(true)} onGetEmail={(value) => setEmail(value)} />
 
                 <NextLink href={PATH_AUTH.login} passHref>
                   <Button fullWidth size="large" sx={{ mt: 1 }}>
-                    Back
+                    Login
                   </Button>
                 </NextLink>
               </>
@@ -73,7 +93,7 @@ export default function ResetPassword() {
                 <SentIcon sx={{ mb: 5, mx: 'auto', height: 160 }} />
 
                 <Typography variant="h3" gutterBottom>
-                  Your password has been successfully updated.
+                  Account Successfully Verified
                 </Typography>
                 <Typography>
                   <br />
@@ -82,7 +102,7 @@ export default function ResetPassword() {
 
                 <NextLink href={PATH_AUTH.login} passHref>
                   <Button size="large" variant="contained" sx={{ mt: 5 }}>
-                    Back
+                    Dashboard
                   </Button>
                 </NextLink>
               </Box>

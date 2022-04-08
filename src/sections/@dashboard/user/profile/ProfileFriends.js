@@ -45,7 +45,8 @@ export default function ProfileFriends({ friends, findFriends, onFindFriends, us
           setMyFriends(data);
           //Remove Loading
           setLoadingData(false);
-          console.log(data);
+          // console.log(data);
+          
       })
       .catch((error) => {
         console.log(error);
@@ -57,6 +58,8 @@ export default function ProfileFriends({ friends, findFriends, onFindFriends, us
   const friendFiltered = myfriends;
 
   const isNotFound = friendFiltered.length === 0;
+
+  console.log(isNotFound);
 
   return (
     <Box sx={{ mt: 5 }}>
@@ -84,7 +87,8 @@ export default function ProfileFriends({ friends, findFriends, onFindFriends, us
       /> */}
 
       <Grid container spacing={3}>
-        {isNotFound > 0 ? friendFiltered.map((friend) => (
+
+        {myfriends !== 'You Do Not Have Any Referrals' ? friendFiltered.map((friend) => (
           <Grid key={friend.id} item xs={12} md={4}>
             <FriendCard friend={friend} /> 
           </Grid>

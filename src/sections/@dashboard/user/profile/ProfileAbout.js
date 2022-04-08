@@ -22,7 +22,7 @@ ProfileAbout.propTypes = {
 };
 
 export default function ProfileAbout({ user }) {
-  const { quote, country, email, level_name, referrer_name, school } = user;
+  const { quote, country, email, level_name, referrer_name, level } = user;
 
   return (
     <Card>
@@ -49,6 +49,11 @@ export default function ProfileAbout({ user }) {
         <Stack direction="row">
           <IconStyle icon={'carbon:skill-level-advanced'} />
           <Typography variant="body2">Level: {level_name}</Typography>
+        </Stack>
+
+        <Stack direction="row">
+          <IconStyle icon={'fa6-solid:people-group'} />
+          <Typography variant="body2">Downline Count: {level?.members} members</Typography>
         </Stack>
 
         <Stack direction="row">

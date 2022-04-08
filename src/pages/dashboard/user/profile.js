@@ -70,8 +70,6 @@ export default function UserProfile() {
     }
   }, []);
 
-
-
   const [findFriends, setFindFriends] = useState('');
 
   const handleChangeTab = (newValue) => {
@@ -121,9 +119,7 @@ export default function UserProfile() {
           }}
         >
           <ProfileCover user={user} />
-
-          {console.log(user)}
-
+          
           <TabsWrapperStyle>
             <Tabs
               value={currentTab}

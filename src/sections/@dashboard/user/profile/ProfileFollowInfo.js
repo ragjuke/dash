@@ -4,6 +4,9 @@ import { Card, Stack, Typography, Divider } from '@mui/material';
 // utils
 import { fNumber } from '../../../../utils/formatNumber';
 
+import useAuth from '../../../../hooks/useAuth';
+
+
 // ----------------------------------------------------------------------
 
 ProfileFollowInfo.propTypes = {
@@ -14,6 +17,9 @@ ProfileFollowInfo.propTypes = {
 };
 
 export default function ProfileFollowInfo({ user }) {
+
+  const { ref } = useAuth();
+
   const { balance, referrer_name, level } = user;
 
   return (
@@ -27,7 +33,7 @@ export default function ProfileFollowInfo({ user }) {
         </Stack>
 
         <Stack width={1} textAlign="center">
-          <Typography variant="h4">{fNumber(level?.members)}</Typography>
+          <Typography variant="h4">{ ref =='You Do Not Have Any Referrals' ? '0' : ref.length  }</Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Referrals
           </Typography>

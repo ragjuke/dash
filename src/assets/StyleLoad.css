@@ -33,6 +33,10 @@
   background: rgb(255, 156, 156) ;
 
 }
+
+.ql-editor{
+  min-height:200px;
+}
   
   @keyframes dotCarousel {
     0% {

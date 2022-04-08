@@ -9,17 +9,19 @@ import { useForm, Controller } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
-import { Grid, Card, Chip, Stack, Button, TextField, Typography, Autocomplete } from '@mui/material';
+import { Grid, Card, Chip, Stack, Button, TextField, Typography, Autocomplete, Input } from '@mui/material';
 // routes
 import { PATH_ADMIN, PATH_DASHBOARD } from '../../../routes/paths';
 //components
 import { RHFSwitch, RHFEditor, FormProvider, RHFTextField, RHFUploadSingleFile } from '../../../components/hook-form';
 //
 import BlogNewPostPreview from './BlogNewPostPreview';
+import dynamic from 'next/dynamic'; 
 
+import Iconify from 'src/components/Iconify';
 import axios from '../../../utils/axios';
 
-
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 // ----------------------------------------------------------------------
 
@@ -36,107 +38,100 @@ export default function BlogEditPostForm(props) {
   const { push } = useRouter();
 
   const [open, setOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleOpenPreview = () => {
-    setOpen(true);
-  };
+  const [blog, setBlog] = useState({
+    title:'',
+    body:'',
+    meta_title:'',
+    meta_desc:'',
+    slug:'',
+});
 
-  const handleClosePreview = () => {
-    setOpen(false);
-  };
+const handleOnChange = e=>{
+  const name = e.target.getAttribute('name');
+  const value = e.target.value;
 
-  const NewBlogSchema = Yup.object().shape({
-    title: Yup.string().required('Title is required'),
-    content: Yup.string().required('Content is required'),
-    slug: Yup.string().required('Content is required'),
-    metaTitle: Yup.string().required('Content is required'),
-    metaDescription: Yup.string().required('Content is required'),
-  });
+  const data = {...blog}
+  data[name] = value;
+  setBlog(data);
+}
+const handleEditorChange = () => {
+ const data = {...blog}
+ //console.log('Content was updated:', content);
+ data['body'] = document.getElementsByClassName("ql-editor")[0].innerHTML;
 
-  const defaultValues = {
-    title: props.data.title, 
-    content: props.data.body,
-    cover: 'null',
-    slug: props.data.slug,
-    metaTitle: props.data.meta_title,
-    metaDescription: props.data.meta_desc,
-  };
+ setBlog(data);
+ 
+}
+ 
 
-  const methods = useForm({
-    resolver: yupResolver(NewBlogSchema),
-    defaultValues,
-  });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  const {
-    reset,
-    watch,
-    control,
-    setValue,
-    handleSubmit,
-    formState: { isSubmitting, isValid },
-  } = methods;
+    let fdata = new FormData(e.target); 
+    fdata.append('body', document.getElementsByClassName("ql-editor")[0].innerHTML);
+        
+        let fd = {};
+        for (var pair of fdata.entries()) {
+            fd[pair[0]] = pair[1];
+        }
 
-  const values = watch();
 
-  const onSubmit = async (data) => {
-    let sendData = {
-        title: data.title,
-        body: data.content,
-        slug: data.slug,
-        meta_title: data.metaTitle,
-        meta_desc: data.metaDescription,
-        image: data.cover,
-    }
+
+    // Send the Request
+    axios.defaults.withCredentials = true;
 
     try {
 
-
-      await  axios.patch(`/api/news/${props.id}`, sendData)
-      .then(({ data }) => {
-        enqueueSnackbar('Post Updated!');
+    let response = await axios.patch(`/api/news/${props.id}`, fd);
+      if(response.data == 'Updated Successfully'){
+        enqueueSnackbar('Post Updated successfully!');
+        setIsSubmitting(false);
         setTimeout(()=>{
           push(PATH_ADMIN.admin.news);
           // location.reload();
         }, 
           1000);
-      } )
-      .catch((e) => enqueueSnackbar('An Error Occured!') );
+      }else{
+        enqueueSnackbar('An Error might have occured. Reload Page.');
+        setIsSubmitting(false);
+      }
     } catch (error) {
       console.error(error);
+      setIsSubmitting(false);
     }
   };
 
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
-
-      if (file) {
-        setValue(
-          'cover',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-    },
-    [setValue]
-  );
-
-
   return (
     <>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <form encType="multipart/form-data" id="news-form" onSubmit={e=> onSubmit(e)}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3}>
-                <RHFTextField name="title" label="Post Title"  defaultValue={props.data.title} />
+                
+                <TextField name="title" type="text" variant="outlined" label="Post Title" id="title" defaultValue={props.data?.title} onChange={handleOnChange}/>
                 <div>
                   <LabelStyle>Content</LabelStyle>
-                  <RHFEditor name="content" defaultValue={props.data.body} />
+                  <ReactQuill id="body" name="body" type="text" label="Content" defaultValue={props.data?.body} onEditorChange={handleEditorChange} /> 
                 </div>
+
+
+                {/* <label htmlFor='image'>
+                <Input accept="image/*"
+                  id="image"
+                  label="Select Image"
+                  name="image"
+                  onChange={handleOnChange}
+                  type="file" />
+                        <Button variant="contained" color="warning" startIcon={<Iconify icon={'eva:plus-fill'} />} onClick={e=> document.getElementById("image").click()}>
+                            Select Image
+                        </Button><br/>
+                  </label> */}
 
                 {/* <div>
                   <LabelStyle>Cover</LabelStyle>
@@ -150,11 +145,11 @@ export default function BlogEditPostForm(props) {
             <Card sx={{ p: 3 }}>
               <Stack spacing={3}>
 
-                <RHFTextField name="slug" label="Slug" defaultValue={props.data.slug} />
+                <TextField name="slug" label="Slug" id="slug" placeholder='Enter Slug' defaultValue={props.data?.slug} onChange={handleOnChange} />
 
-                <RHFTextField name="metaTitle" label="Meta title" defaultValue={props.data.meta_title} />
+                <TextField name="meta_title" label="Meta title" id="meta_title" placeholder='Enter Meta Title' defaultValue={props.data?.meta_title} onChange={handleOnChange} />
 
-                <RHFTextField name="metaDescription" label="Meta description" fullWidth multiline rows={3}  defaultValue={props.data.meta_desc} />
+                <TextField name="meta_desc" label="Meta description" id="meta_desc" fullWidth multiline rows={3} placeholder='Enter Meta Description'  defaultValue={props.data?.meta_desc} onChange={handleOnChange}/>
 
               </Stack>
             </Card>
@@ -167,16 +162,8 @@ export default function BlogEditPostForm(props) {
             </Stack>
           </Grid>
         </Grid>
-      </FormProvider>
+      </form>
 
-      <BlogNewPostPreview
-        values={values}
-        isOpen={open}
-        isValid={isValid}
-        isSubmitting={isSubmitting}
-        onClose={handleClosePreview}
-        onSubmit={handleSubmit(onSubmit)}
-      />
     </>
   );
 }
