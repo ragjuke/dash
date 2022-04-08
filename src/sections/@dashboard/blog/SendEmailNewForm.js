@@ -35,7 +35,7 @@ export default function SendEmailNewForm(props) {
   const { username } = router.query
   // const [recUser, setRecUser] = useState('');
   const recUser = username == '' ? props.id : '';
-  console.log(username);
+  console.log(router.query.username);
 
   const [open, setOpen] = useState(false);
 
