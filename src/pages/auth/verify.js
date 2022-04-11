@@ -16,6 +16,8 @@ import Iconify from '../../components/Iconify';
 import { VerifyCodeForm } from '../../sections/auth/verify-code';
 import React, { useState, useEffect } from 'react';
 import { LoadingButton } from '@mui/lab';
+
+import { useRouter } from 'next/router';
 import useAuth from '../../hooks/useAuth';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 
@@ -39,6 +41,7 @@ VerifyCode.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function VerifyCode() {
+  const router = useRouter();
 
 
   useEffect(() => {
@@ -91,7 +94,7 @@ export default function VerifyCode() {
       router.replace(PATH_AUTH.login);
 
       if (isMountedRef.current) {
-        handleClose();
+        // handleClose();
       }
     } catch (error) {
       console.error(error);
