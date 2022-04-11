@@ -44,12 +44,11 @@ import { fDateTime } from 'src/utils/formatTime';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'description', label: 'Description', alignRight: false },
+  { id: 'wd_id', label: 'Withdraw ID', alignRight: false },
   { id: 'amount', label: 'Amount', alignRight: false },
-  { id: 'to_receive', label: 'To Receive', alignRight: false },
-  { id: 'due', label: 'Next Due', alignRight: false },
+  { id: 'address', label: 'BTC Address', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
-  { id: 'created_at', label: 'Date Invested', alignRight: false },
+  { id: 'created_at', label: 'Date', alignRight: false },
   { id: '' },
 ];
 
@@ -75,7 +74,7 @@ export default function InvList() {
   const [invList, setInvList] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [filterName, setFilterName] = useState('on');
+  const [filterName, setFilterName] = useState('all');
   const [loadingData, setLoadingData] = useState(true);
 
   useEffect(() => {
@@ -83,7 +82,7 @@ export default function InvList() {
     setLoadingData(true);
 
     axios
-    .get(`/api/investments/mine/${filterName}?page=${page}`)
+    .get(`/api/withdraws/mine/${filterName}?page=${page}`)
       .then(({ data }) => {
 
         // setTimeout( () => {
@@ -134,10 +133,10 @@ export default function InvList() {
 
 
   return (
-    <Page title="Investments: List">
+    <Page title="Withdrawals: List">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Investment List"
+          heading="Withdrawals List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Transactions', href: PATH_DASHBOARD.transactions.list },
@@ -147,8 +146,8 @@ export default function InvList() {
             <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} spacing={0.5}>
                   <Button size="small" variant="contained" color='info' startIcon={<Iconify icon={'bx:border-all'} />} onClick={e=> changeFilter(e, 'all')} >All</Button>
 
-                  <Button size="small" variant="contained" color='success' startIcon={<Iconify icon={'carbon:task-complete'} />} onClick={e=> changeFilter(e, 'complete')} > Complete </Button>
-                  <Button size="small" variant="contained" color='warning' startIcon={<Iconify icon={'carbon:pending'} />} onClick={e=> changeFilter(e, 'on')} > Ongoing </Button>
+                  <Button size="small" variant="contained" color='success' startIcon={<Iconify icon={'carbon:task-complete'} />} onClick={e=> changeFilter(e, 'paid')} > Paid </Button>
+                  <Button size="small" variant="contained" color='warning' startIcon={<Iconify icon={'carbon:pending'} />} onClick={e=> changeFilter(e, 'unpaid')} > Pending </Button>
               </Stack>
           }
         />
@@ -158,7 +157,7 @@ export default function InvList() {
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
-            title="Investment List"
+            title="Withdrawals List"
           />
 
           <Scrollbar>
@@ -190,23 +189,22 @@ export default function InvList() {
 
                   {invList?.map((row) => {
                     
-                    const { package: plan, id, description, amount, next_due, status, type, created_at } = row;
+                    const { wd_id, id, detail, amount, status, created_at } = row;
 
                     return (
                       <TableRow
                         hover
                         key={id}
                       >
-                        <TableCell align="left">{plan.title}</TableCell>
+                        <TableCell align="left">{wd_id}</TableCell>
                         <TableCell align="left">${amount}</TableCell>
-                        <TableCell align="left">${toReceive(+amount, +plan.percent)}</TableCell>
-                        <TableCell align="left">{fDateTime(next_due)}</TableCell>
-                        <TableCell align="left">{type}
+                        <TableCell align="left">{detail}</TableCell>
+                        <TableCell align="left">
                                <Label
                                   variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-                                  color={(status == 0 && 'success') || 'warning'}
+                                  color={(status == 0 && 'warning') || 'success'}
                                 >
-                                    {status==0 ? 'Completed' : 'Ongoing' }
+                                    {status==0 ? 'Pending' : 'Paid' }
                                 </Label>
                         </TableCell>
                         <TableCell align="left">{fDateTime(created_at)}</TableCell>

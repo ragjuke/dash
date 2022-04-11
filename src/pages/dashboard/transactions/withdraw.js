@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Grid, Step, Stepper, Container, StepLabel, StepConnector, Stack } from '@mui/material';
+import { Box, Button, Grid, Step, Stepper, Container, StepLabel, StepConnector, Stack } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../../redux/store';
 import { getCart, createBilling } from '../../../redux/slices/product';
@@ -24,6 +24,7 @@ import {
 
 import axios from '../../../utils/axios';
 import React from 'react';
+import NextLink from 'next/link';
 
 
 // ----------------------------------------------------------------------
@@ -124,6 +125,15 @@ export default function EcommerceCheckout() {
             },
             { name: 'Withdraw' },
           ]}
+
+          action={
+            <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} spacing={0.5}>
+                <NextLink href={PATH_DASHBOARD.transactions.withdrawals} passHref>
+                  <Button size="small" variant="contained" color='error' startIcon={<Iconify icon={'carbon:task-complete'} />} > View all withdrawals </Button>
+                </NextLink>
+              </Stack>
+          }
+
         />
 
         <Withdraw />

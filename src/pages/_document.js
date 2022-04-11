@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/images/favicon/site.webmanifest" />
 
           <meta name="theme-color" content={palette.light.primary.main} />
-          <link rel="manifest" href="/manifest.json" />
+          {/* <link rel="manifest" href="/manifest.json" /> */}
 
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link

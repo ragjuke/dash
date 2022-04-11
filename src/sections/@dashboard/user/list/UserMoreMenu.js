@@ -158,8 +158,8 @@ export default function UserMoreMenu({ onDelete, userName, id, editPath, emailPa
       pathname: pathNameEmail,
       query: { username: x }
       }
-    
-    push(pathNameEmail, data);
+    window.location.href = pathNameEmail+'?username='+x;
+    // push(pathNameEmail, data);
   }
 
   return (
@@ -219,7 +219,7 @@ export default function UserMoreMenu({ onDelete, userName, id, editPath, emailPa
           UnBan
         </MenuItem>
 
-        <MenuItem onClick={(e) => twoFAActivate(e, false, id)}>
+        <MenuItem onClick={(e) => twoFAActivate(e, true, id)}>
           <Iconify icon={'dashicons:unlock'} sx={{ ...ICON }} />
           Unlock 2FA
         </MenuItem>

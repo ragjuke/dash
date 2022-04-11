@@ -148,7 +148,7 @@ function AuthProvider({ children }) {
               type: 'INITIALIZE',
               payload: {
                 isAuthenticated: true,
-                isEmailTwoFA: false,
+                isEmailTwoFA: true,
                 user,
                 ref,
                 siteSettings,

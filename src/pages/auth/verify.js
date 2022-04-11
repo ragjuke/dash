@@ -16,6 +16,10 @@ import Iconify from '../../components/Iconify';
 import { VerifyCodeForm } from '../../sections/auth/verify-code';
 import React, { useState, useEffect } from 'react';
 import { LoadingButton } from '@mui/lab';
+import useAuth from '../../hooks/useAuth';
+import useIsMountedRef from '../../hooks/useIsMountedRef';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +40,16 @@ VerifyCode.getLayout = function getLayout(page) {
 
 export default function VerifyCode() {
 
+
+  useEffect(() => {
+    // document.getElementById('sendCode').click();
+  }, []);
+
   const { enqueueSnackbar } = useSnackbar();
+
+  const { logout } = useAuth();
+  const isMountedRef = useIsMountedRef();
+
 
   const [isSending, setIsSending] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -45,12 +58,15 @@ export default function VerifyCode() {
   const [disabled, setDisabled] = useState(false)
 
   const reduceTime = () => {
+    let countTime = time;
     const interval = setInterval(()=>{
-      if(time === 0){
+      console.log(countTime)
+      if(countTime == 1){
         clearInterval(interval);
         setDisabled(false);
       }
       setTime(time=> time - 1)
+      countTime--;
     }, 1000);
 
     
@@ -69,20 +85,34 @@ export default function VerifyCode() {
 
   }
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.replace(PATH_AUTH.login);
+
+      if (isMountedRef.current) {
+        handleClose();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Page title="Verify" sx={{ height: 1 }}>
       <RootStyle>
         <Container>
           <Box sx={{ maxWidth: 480, mx: 'auto' }}>
-            <NextLink href={PATH_AUTH.login} passHref>
+            {/* <NextLink href={PATH_AUTH.login} passHref> */}
               <Button
                 size="small"
                 startIcon={<Iconify icon={'eva:arrow-ios-back-fill'} width={20} height={20} />}
                 sx={{ mb: 3 }}
+                onClick={handleLogout}
               >
                 Back
               </Button>
-            </NextLink>
+            {/* </NextLink> */}
 
             <Typography variant="h3" paragraph>
               Please check your email!
@@ -98,8 +128,8 @@ export default function VerifyCode() {
 
             <Typography variant="body2" align="center">
               Don’t have a code? &nbsp;
-              <LoadingButton variant="subtitle2" underline="none" onClick={(e) => {sendUserCode(); }} sx={{ cursor: 'pointer' }} loading={isSending} disabled={disabled}>
-                { counter == 0 ? 'Send Code' : <>Resend code in {time}</> }
+              <LoadingButton variant="subtitle2" underline="none" onClick={(e) => {sendUserCode(); }} sx={{ cursor: 'pointer' }} loading={isSending} disabled={disabled} id="sendCode">
+                { counter == 0 ? 'Send Code' : <>Resend code {time !=0 && `in ${time}` }</> }
               </LoadingButton>
             </Typography>
           </Box>

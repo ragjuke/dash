@@ -30,6 +30,7 @@ export const PATH_PAGE = {
   faqs: '/faqs',
   page404: '/404',
   page500: '/500',
+  suspended: '/suspended',
   components: '/components',
 };
 
@@ -79,6 +80,7 @@ export const PATH_DASHBOARD = {
     investments: path(ROOTS_DASHBOARD, '/transactions/investments'),
     deposit: path(ROOTS_DASHBOARD, '/transactions/deposit'),
     withdraw: path(ROOTS_DASHBOARD, '/transactions/withdraw'),
+    withdrawals: path(ROOTS_DASHBOARD, '/transactions/withdrawals'),
     packages: path(ROOTS_DASHBOARD, '/transactions/packages'),
   },
   eCommerce: {

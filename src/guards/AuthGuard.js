@@ -8,6 +8,7 @@ import Login from '../pages/auth/login';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 import Verify from '../pages/auth/verify';
+import Suspended from '../pages/suspended';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +17,7 @@ AuthGuard.propTypes = {
 };
 
 export default function AuthGuard({ children }) {
-  const { isAuthenticated, isInitialized, isEmailTwoFA } = useAuth();
+  const { isAuthenticated, isInitialized, isEmailTwoFA, user, siteSettings } = useAuth();
 
   const { pathname, push } = useRouter();
 
@@ -37,6 +38,16 @@ export default function AuthGuard({ children }) {
     return <Verify />;
   }
 
+   // Chek for Banned Users
+   if(isAuthenticated){
+    if(user.banned == 1){
+      console.log('Your account has been suspended');
+     //  return `<h3>Your account has been suspended by site admin. Contact ${siteSettings.email} for further details</h3>`;
+      return <Suspended/>
+    }
+   }
+   
+
   // if (!isAuthenticated) {
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {
@@ -44,6 +55,8 @@ export default function AuthGuard({ children }) {
     }
     return <Login />;
   }
+
+ 
 
 
   // if (isEmailTwoFA){

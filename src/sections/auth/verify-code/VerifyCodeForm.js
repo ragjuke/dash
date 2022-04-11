@@ -49,7 +49,7 @@ export default function VerifyCodeForm() {
     handleSubmit,
     formState: { isSubmitting, isValid },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'all',
     resolver: yupResolver(VerifyCodeSchema),
     defaultValues,
   });
@@ -95,6 +95,9 @@ export default function VerifyCodeForm() {
       const fieldIndex = `code${index + 1}`;
       setValue(fieldIndex, data[index]);
     });
+
+
+    
   };
 
   const handleChangeWithNextField = (event, handleChange) => {
@@ -114,10 +117,11 @@ export default function VerifyCodeForm() {
     }
 
     handleChange(event);
+    
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} id="verifyForm">
       <Stack direction="row" spacing={2} justifyContent="center">
         {Object.keys(values).map((name, index) => (
           <Controller

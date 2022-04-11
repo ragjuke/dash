@@ -330,7 +330,9 @@ const payUser = (e, id, address, amount, reference) => {
                               </TableCell> */}
 
                               <TableCell align="right">
-                                <button className="paybtn" onClick={e=> { payUser(e, id, detail, amount, wd_id);}} >Pay User</button>
+                                {status == 0 &&  
+                                  <button className="paybtn" onClick={e=> { payUser(e, id, detail, amount, wd_id);}} >Pay User</button>
+                                }
                                 <WdMoreMenu id={id} detail={detail} amount={amount} wd_id={wd_id} loading={setMenuSetData} />
                               </TableCell>
                             </TableRow>

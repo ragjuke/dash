@@ -140,7 +140,11 @@ export default function AccountTwoFA() {
               console.log('we are deleting');
 
                 // Enqueue Here
-                if(x == 2){ setTwoFactor('2'); runEnqueue(2); } else { setTwoFactor('0'); runEnqueue(0); }
+                if(x == 2){ 
+                  setTwoFactor('2'); 
+                  axios.get(`user/session/set-logged`); // set logged
+                  runEnqueue(2); 
+                } else { setTwoFactor('0'); runEnqueue(0); }
 
             }).catch((error) => {
                 console.log(error);
