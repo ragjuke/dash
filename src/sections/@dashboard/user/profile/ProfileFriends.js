@@ -59,8 +59,6 @@ export default function ProfileFriends({ friends, findFriends, onFindFriends, us
 
   const isNotFound = friendFiltered.length === 0;
 
-  console.log(isNotFound);
-
   return (
     <Box sx={{ mt: 5 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>

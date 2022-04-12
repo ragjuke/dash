@@ -50,7 +50,7 @@ export default function ProfileCover({ user }) {
 
   const { fname, lname, position, profile_photo_url } = user;
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <RootStyle>

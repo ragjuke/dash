@@ -28,20 +28,29 @@ export default function ProfileFriends({ friends, findFriends, onFindFriends, us
   const [loadingData, setLoadingData] = useState(false);
 
   useEffect(() => {
-    setLoadingData(true);
 
-    axios
-    .get(`/api/user/ref/${user.id}`)
-      .then(({ data }) => {
+    if(user != undefined && user.length != 0){
 
-          setMyFriends(data);
-          //Remove Loading
-          setLoadingData(false);
-          console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      console.log(user)
+
+        setLoadingData(true);
+
+        axios
+        .get(`/api/user/ref/${user.id}`)
+          .then(({ data }) => {
+
+              setMyFriends(data);
+              //Remove Loading
+              setLoadingData(false);
+              console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        }
+
+
+
   }, []);
 
 
@@ -75,20 +84,16 @@ export default function ProfileFriends({ friends, findFriends, onFindFriends, us
         sx={{ mb: 5 }}
       /> */}
 
-      <Grid container spacing={3}>
-        {friendFiltered.length < 0 ? 
-        
-        friendFiltered.map((friend) => (
+        <Grid container spacing={3}>
+
+        {myfriends !== 'You Do Not Have Any Referrals' ? friendFiltered.map((friend) => (
           <Grid key={friend.id} item xs={12} md={4}>
             <FriendCard friend={friend} /> 
           </Grid>
-        ))
-        :
-        <Grid item xs={12} md={4}>
-            <h3>No Referrals</h3>
-        </Grid>
+        )) :
+        <Box sx={{ padding: '20px', border: '1px solid #888', margin: '20px' }}><h3>No Referrals</h3></Box>
         }
-      </Grid>
+        </Grid>
 
       {isNotFound && (
         <Box sx={{ mt: 5 }}>

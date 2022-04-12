@@ -68,7 +68,7 @@ export default function UserProfile() {
   useEffect(() => {
     axios.get(`/api/user/${uid}`).then(r=>{
       setUser(r.data);
-      console.log(r.data);
+      // console.log(r.data);
   });
     
   }, []);
@@ -134,8 +134,9 @@ export default function UserProfile() {
             </Tabs>
           </TabsWrapperStyle>
         </Card>
+        {console.log(user)}
 
-        {PROFILE_TABS.map((tab) => {
+        {(user != undefined && user.length != 0) && PROFILE_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;
         })}
