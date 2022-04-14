@@ -50,7 +50,8 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
   const handleApprove = async (e, id) => {
 
     let myData = {
-      kyc: 1 
+      kyc: 1,
+      paid_status: 1
     }
 
     // const options = {
@@ -77,12 +78,29 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
 
     // let res = await axios.post(`/api/admin/user-kyc-update`, { id: id, kyc: 1, status: 1 });
 
-    await axios.get('/sanctum/csrf-cookie');
-    await axios.patch(`api/admin/user/${id}`, myData);
+    // await axios.get('/sanctum/csrf-cookie');
+    // await axios.patch(`api/admin/user/${id}`, myData);
+
+
+    try {
+      
+      await axios.patch(`/api/admin/user/${id}`, myData)
+        .then(res=>{ 
+          console.log(res);
+          enqueueSnackbar('Accepted Successfully!');
+          location.reload();
+        })
+        .catch(err=>{alert('An error occured');});
+
+    } catch (error) {
+      console.error(error);
+    }
+
+
     // await axios.get('/sanctum/csrf-cookie');
     // let res = await axios.patch(`api/admin/user-kyc/${id}`, { status: 1 });
 
-    enqueueSnackbar('Approved Successfully');
+    // enqueueSnackbar('Approved Successfully');
     // location.reload();
 
     loading(false);
@@ -96,9 +114,9 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
   const handleReject = async (e, id) => {
 
     let myData = {
-      kyc: 0 
+      kyc: 0,
+      paid_status: 1
     }
-
 
     // const options = {
     //   headers: {"Access-Control-Allow-Origin": "*"}
@@ -123,12 +141,29 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
           //     console.log(error.response.data);
           //   });
 
-    await axios.get('/sanctum/csrf-cookie');
-    await axios.patch(`api/admin/user/${id}`, myData);
+    // await axios.get('/sanctum/csrf-cookie');
+    // await axios.patch(`api/admin/user/${id}`, myData);
+
+    try {
+      
+      await axios.patch(`/api/admin/user/${id}`, myData)
+        .then(res=>{ 
+          console.log(res);
+          enqueueSnackbar('Rejected Successfully!');
+          location.reload();
+        })
+        .catch(err=>{alert('An error occured');});
+
+    } catch (error) {
+      console.error(error);
+    }
+
+
+
     // await axios.get('/sanctum/csrf-cookie');
     // let res = await axios.patch(`api/admin/user-kyc/${id}`, { status: 2 });
 
-    enqueueSnackbar('Rejected Successfully');
+    // enqueueSnackbar('Rejected Successfully');
     // location.reload();
 
         loading(false);
