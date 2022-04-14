@@ -49,9 +49,13 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
 
   const handleApprove = async (e, id) => {
 
-    const options = {
-      headers: {"Access-Control-Allow-Origin": "*"}
-    };
+    let myData = {
+      kyc: 1 
+    }
+
+    // const options = {
+    //   headers: {"Access-Control-Allow-Origin": "*"}
+    // };
       
     e.preventDefault();
     loading(true);
@@ -74,12 +78,12 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
     // let res = await axios.post(`/api/admin/user-kyc-update`, { id: id, kyc: 1, status: 1 });
 
     await axios.get('/sanctum/csrf-cookie');
-    await axios.patch(`api/admin/user/${id}`, { kyc: 1 });
+    await axios.patch(`api/admin/user/${id}`, myData);
     // await axios.get('/sanctum/csrf-cookie');
     // let res = await axios.patch(`api/admin/user-kyc/${id}`, { status: 1 });
 
     enqueueSnackbar('Approved Successfully');
-    location.reload();
+    // location.reload();
 
     loading(false);
 
@@ -91,9 +95,14 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
 
   const handleReject = async (e, id) => {
 
-    const options = {
-      headers: {"Access-Control-Allow-Origin": "*"}
-    };
+    let myData = {
+      kyc: 0 
+    }
+
+
+    // const options = {
+    //   headers: {"Access-Control-Allow-Origin": "*"}
+    // };
 
     e.preventDefault();
     loading(true);
@@ -115,12 +124,12 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
           //   });
 
     await axios.get('/sanctum/csrf-cookie');
-    await axios.patch(`api/admin/user/${id}`, { kyc: 0 });
+    await axios.patch(`api/admin/user/${id}`, myData);
     // await axios.get('/sanctum/csrf-cookie');
     // let res = await axios.patch(`api/admin/user-kyc/${id}`, { status: 2 });
 
     enqueueSnackbar('Rejected Successfully');
-    location.reload();
+    // location.reload();
 
         loading(false);
     
