@@ -48,6 +48,10 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
 
 
   const handleApprove = async (e, id) => {
+
+    const options = {
+      headers: {"Access-Control-Allow-Origin": "*"}
+    };
       
     e.preventDefault();
     loading(true);
@@ -56,7 +60,7 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
 
 
           axios
-            .post('/api/admin/user-kyc-update', { id: id, kyc: 1, status: 1 } )
+            .post('/api/admin/user-kyc-update', { id: id, kyc: 1, status: 1 }, options )
             .then((res) => {
               // console.log(response.data);
               enqueueSnackbar(res.data);
@@ -87,6 +91,10 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
 
   const handleReject = async (e, id) => {
 
+    const options = {
+      headers: {"Access-Control-Allow-Origin": "*"}
+    };
+
     e.preventDefault();
     loading(true);
 
@@ -95,7 +103,7 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
 
 
           axios
-            .post('/api/admin/user-kyc-update', { id: id, kyc: 0, status: 2 } )
+            .post('/api/admin/user-kyc-update', { id: id, kyc: 0, status: 2 }, options )
             .then((res) => {
               // console.log(response.data);
               enqueueSnackbar(res.data);
