@@ -250,7 +250,7 @@ export default function TransList() {
                             </TableCell>
 
                             <TableCell align="right">
-                              <KycMoreMenu id={id} loading={setMenuSetData} />
+                              <KycMoreMenu id={user_id} loading={setMenuSetData} />
                             </TableCell>
                           </TableRow>
                         );

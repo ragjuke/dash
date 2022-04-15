@@ -50,8 +50,7 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
   const handleApprove = async (e, id) => {
 
     let myData = {
-      kyc: 1,
-      paid_status: 1
+      kyc: 1
     }
 
     // const options = {
@@ -60,26 +59,6 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
       
     e.preventDefault();
     loading(true);
-
-    // await axios.get('/sanctum/csrf-cookie');
-
-
-    //       axios
-    //         .post('/api/admin/user-kyc-update', { id: id, kyc: 1, status: 1 }, options )
-    //         .then((res) => {
-    //           // console.log(response.data);
-    //           enqueueSnackbar(res.data);
-    //           loading(false);
-    //           location.reload();
-    //         })
-    //         .catch((error) => {
-    //           console.log(error.response.data);
-    //         });
-
-    // let res = await axios.post(`/api/admin/user-kyc-update`, { id: id, kyc: 1, status: 1 });
-
-    // await axios.get('/sanctum/csrf-cookie');
-    // await axios.patch(`api/admin/user/${id}`, myData);
 
 
     try {
@@ -90,18 +69,12 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
           enqueueSnackbar('Accepted Successfully!');
           location.reload();
         })
-        .catch(err=>{alert('An error occured');});
+        .catch(err=>{console.log(err);});
 
     } catch (error) {
       console.error(error);
     }
 
-
-    // await axios.get('/sanctum/csrf-cookie');
-    // let res = await axios.patch(`api/admin/user-kyc/${id}`, { status: 1 });
-
-    // enqueueSnackbar('Approved Successfully');
-    // location.reload();
 
     loading(false);
 
@@ -114,8 +87,7 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
   const handleReject = async (e, id) => {
 
     let myData = {
-      kyc: 0,
-      paid_status: 1
+      kyc: 0
     }
 
     // const options = {
@@ -125,25 +97,6 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
     e.preventDefault();
     loading(true);
 
-    // await axios.get('/sanctum/csrf-cookie');
-    // let res = await axios.post(`/api/admin/user-kyc-update`, { id: id, kyc: 0, status: 2 });
-
-
-          // axios
-          //   .post('/api/admin/user-kyc-update', { id: id, kyc: 0, status: 2 }, options )
-          //   .then((res) => {
-          //     // console.log(response.data);
-          //     enqueueSnackbar(res.data);
-          //     loading(false);
-          //     location.reload();
-          //   })
-          //   .catch((error) => {
-          //     console.log(error.response.data);
-          //   });
-
-    // await axios.get('/sanctum/csrf-cookie');
-    // await axios.patch(`api/admin/user/${id}`, myData);
-
     try {
       
       await axios.patch(`/api/admin/user/${id}`, myData)
@@ -152,19 +105,11 @@ export default function KycMoreMenu({ id, editPath, emailPath, loading }) {
           enqueueSnackbar('Rejected Successfully!');
           location.reload();
         })
-        .catch(err=>{alert('An error occured');});
+        .catch(err=>{console.log(err);});
 
     } catch (error) {
       console.error(error);
     }
-
-
-
-    // await axios.get('/sanctum/csrf-cookie');
-    // let res = await axios.patch(`api/admin/user-kyc/${id}`, { status: 2 });
-
-    // enqueueSnackbar('Rejected Successfully');
-    // location.reload();
 
         loading(false);
     
