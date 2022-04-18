@@ -4,6 +4,9 @@
 .pnp.js
 .next
 
+index.html
+pindex.html
+
 # testing
 /coverage
 
