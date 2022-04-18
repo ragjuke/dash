@@ -36,7 +36,8 @@ export default function RegisterForm({referrer}) {
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string().required('First name required'),
     lastName: Yup.string().required('Last name required'),
-    username: Yup.string().required('Enter a Username'),
+    // "^[a-zA-Z0-9]*$" /^[aA-zZ\s]+$/
+    username: Yup.string().required('Enter a Username').matches(/^[aA-zZ0-9]*$/, "Only alphanumeric character are allowed for usernames. No spaces or symbols."),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
     confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),

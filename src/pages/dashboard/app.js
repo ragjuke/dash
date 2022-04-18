@@ -76,7 +76,7 @@ GeneralApp.getLayout = function getLayout(page) {
 export default function GeneralApp() {
   const { user, ref, txn, txnData } = useAuth();
 
-  console.log(user)
+  // console.log(user)
   const theme = useTheme();
   const { themeStretch } = useSettings();
 const [allAlerts, setAllAlerts] = useState(false);

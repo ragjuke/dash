@@ -66,3 +66,38 @@
       transform: rotate(180deg);
     }
   }
+
+
+
+  #google_translate_element select{
+    background-color:#e1241d;
+    color:#fff;
+    border: none;
+    border-radius:3px;
+    padding:6px 8px;
+    border: 1px solid rgb(194, 194, 194);
+    width: 120px;
+  }
+  
+  .goog-logo-link, .goog-te-gadget-icon{
+    display:none !important;
+   }
+  .goog-te-gadget{
+    color:transparent!important;
+    margin: 15px 0 0 15px;
+  }
+  
+  .goog-te-banner-frame{
+    /* display:none !important; */
+    }
+  
+    #goog-gt-tt, .goog-te-balloon-frame{display: none !important;}
+    .goog-text-highlight { background: none !important; box-shadow: none !important;}
+  
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+      } 
+  body {
+      top: 0px !important; 
+      }
+  
