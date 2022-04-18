@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -44,6 +44,26 @@ DashboardLayout.propTypes = {
 };
 
 export default function DashboardLayout({ children }) {
+
+  useEffect(() => {
+    var addScript = document.createElement('script');
+    addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
+}, [])
+
+const googleTranslateElementInit = () => {
+
+    new window.google.translate.TranslateElement({
+        pageLanguage: 'en'
+        // includedLanguages : "en,ms,ta,zh-CN", // include this for selected languages
+        // layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    },
+    'google_translate_element');
+
+}
+
+
   const { collapseClick, isCollapse } = useCollapseDrawer();
 
   const { themeLayout } = useSettings();
