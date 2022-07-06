@@ -50,6 +50,27 @@ export default function DashboardLayout({ children }) {
     addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
     document.body.appendChild(addScript);
     window.googleTranslateElementInit = googleTranslateElementInit;
+
+
+
+    var addScriptTwo = document.createElement('script');
+    addScriptTwo.async = true;
+    addScriptTwo.setAttribute('src', 'https://s3.tradingview.com/external-embedding/embed-widget-screener.js');
+
+    addScriptTwo.text = {
+      "width": "300px",
+      "height": "300px",
+      "defaultColumn": "overview",
+      "screener_type": "crypto_mkt",
+      "displayCurrency": "USD",
+      "colorTheme": "light",
+      "locale": "en",
+      "isTransparent": false
+    }
+    // document.body.appendChild(addScriptTwo);
+    document.getElementById("btcChartBuild").appendChild(addScriptTwo);
+    
+    
 }, [])
 
 const googleTranslateElementInit = () => {

@@ -129,8 +129,8 @@ function FriendCard({ friend }) {
       <Avatar alt={username} src={username} sx={{ width: 64, height: 64, mb: 3 }} /> :
       <Avatar alt={username} src={profile_photo_url} sx={{ width: 64, height: 64, mb: 3 }} />
       }
-      <Link variant="subtitle1" color="text.primary" href={`${PATH_DASHBOARD.user.ref}/?uid=${id}`}> 
-      {/* <Link variant="subtitle1" color="text.primary" href={`${PATH_ADMIN.admin.userRoot}/${id}`}>  */}
+      {/* <Link variant="subtitle1" color="text.primary" href={`${PATH_DASHBOARD.user.ref}/?uid=${id}`}>  */}
+      <Link variant="subtitle1" color="text.primary" href={`${PATH_ADMIN.admin.userRoot}/${id}`}> 
             {fname} {lname} ({username})
       </Link>
 

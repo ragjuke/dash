@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // @mui
 import { Container, Tab, Box, Tabs } from '@mui/material';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_DASHBOARD,PATH_ADMIN } from '../../../routes/paths';
 // hooks
 import useSettings from '../../../hooks/useSettings';
 // _mock_
@@ -25,7 +25,7 @@ import {
 
 import { useRouter } from 'next/router';
 import axios from '../../../utils/axios';
-import { ProfileFriendsRef } from 'src/sections/@dashboard/user/profile';
+import { ProfileFriendsRefAdmin } from 'src/sections/@dashboard/user/profile';
 import RoleBasedGuard from 'src/guards/RoleBasedGuard';
 
 import React from 'react';
@@ -101,7 +101,7 @@ export default function UserAccount() {
     {
       value: 'referrals',
       icon: <Iconify icon={'ph:users-four-light'} width={20} height={20} />,
-      component: <ProfileFriendsRef friends={_userFriends} findFriends={findFriends} onFindFriends={handleFindFriends} user={userEdit} />,
+      component: <ProfileFriendsRefAdmin friends={_userFriends} findFriends={findFriends} onFindFriends={handleFindFriends} user={userEdit} />,
     },
   
   ];
@@ -129,6 +129,7 @@ export default function UserAccount() {
             {ACCOUNT_TABS.map((tab) => (
               <Tab disableRipple key={tab.value} label={capitalCase(tab.value)} icon={tab.icon} value={tab.value} />
             ))}
+              <Tab disableRipple key="sixth" label={capitalCase('Transactions')} icon={<Iconify icon={'icon-park-outline:transaction-order'} width={20} height={20} />} value={"Transactions"} onClick={e=>{ window.location.href = PATH_ADMIN.admin.singleTransaction+'/'+userId }} />
           </Tabs>
 
           <Box sx={{ mb: 5 }} />

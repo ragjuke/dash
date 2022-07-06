@@ -130,6 +130,7 @@ export const PATH_ADMIN = {
     support: path(ROOTS_ADMIN, '/support'),
     supportSingle: path(ROOTS_ADMIN, '/support/:id'),
     transactions: path(ROOTS_ADMIN, '/transactions'),
+    singleTransaction: path(ROOTS_ADMIN, '/transaction/user'),
     users: path(ROOTS_ADMIN, '/user/list'),
     userEdit: path(ROOTS_ADMIN, '/user/:userId'),
     userRoot: path(ROOTS_ADMIN, '/user'),
