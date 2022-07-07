@@ -76,7 +76,7 @@ export default function TransList() {
   const [transList, setTransList] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [filterName, setFilterName] = useState(userId);
+  const [filterName, setFilterName] = useState('all');
   const [loadingData, setLoadingData] = useState(true);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function TransList() {
     setLoadingData(true);
 
     axios
-    .get(`/api/user-transactions/${filterName}?page=${page}`)
+    .get(`/api/user-transactions/${userId}/${filterName}?page=${page}`)
       .then(({ data }) => {
 
         setTimeout( () => {
@@ -147,7 +147,7 @@ export default function TransList() {
                   { name: 'List' },
                 ]}
                 action={
-                  <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} spacing={0.5} style={{ display: "none" }}>
+                  <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} spacing={0.5}>
                     
                         <Button size="small" variant="contained" color='info' startIcon={<Iconify icon={'bx:border-all'} />} onClick={e=> changeFilter(e, 'all')} >All</Button>
                         <Button size="small" variant="contained" color='success' startIcon={<Iconify icon={'cil:money'} />} onClick={e=> changeFilter(e, 'deposit')} > Deposit </Button>
