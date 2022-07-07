@@ -68,7 +68,11 @@ export default function DashboardLayout({ children }) {
       "isTransparent": false
     }
     // document.body.appendChild(addScriptTwo);
-    document.getElementById("btcChartBuild").appendChild(addScriptTwo);
+    // document.getElementById("btcChartBuild").appendChild(addScriptTwo);
+    let getChart = document.getElementById("btcChartBuild");
+    if (getChart){
+      getChart.appendChild(addScriptTwo);
+    }
     
     
 }, [])
