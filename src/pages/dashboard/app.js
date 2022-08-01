@@ -23,7 +23,7 @@ import React from 'react';
 import {
   // AppWidget,
   AppWelcome,
-  // AppNewInvoice,
+  AppNewInvoice,
   // AppTopAuthors,
   AppTopRelated,
   AppAreaInstalled,
