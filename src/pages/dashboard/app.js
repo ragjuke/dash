@@ -21,16 +21,16 @@ import React from 'react';
 
 // sections
 import {
-  // AppWidget,
+  AppWidget,
   AppWelcome,
   AppNewInvoice,
   // AppTopAuthors,
   AppTopRelated,
   AppAreaInstalled,
   AppWidgetSummary,
-  // AppCurrentPackage,
+  AppCurrentPackage,
   AppFiatCurrencies,
-  // AppWidgetUSD,
+  AppWidgetUSD,
 } from '../../sections/@dashboard/general/app';
 import Label from 'src/components/Label';
 import { PATH_ADMIN, PATH_DASHBOARD } from 'src/routes/paths';
@@ -189,7 +189,7 @@ const [isMarking, setIsMarking] = useState(false);
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            {/* <AppCurrentPackage txnData={txnData} /> */}
+            <AppCurrentPackage txnData={txnData} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
@@ -218,8 +218,8 @@ const [isMarking, setIsMarking] = useState(false);
 
           <Grid item xs={12} md={6} lg={4}>
             <Stack spacing={3}>
-              {/* <AppWidgetUSD title="Team Deposit" total={user.level.amount} icon={'dashicons:money-alt'} chartData={ ((user.level.amount/user.level_amount)*100).toFixed(2) } /> */}
-              {/* <AppWidget title="Total Downline Referrals" total={user.level.members} icon={'eva:person-fill'} color="warning" chartData={ ((user.level.members/user.level_max)*100).toFixed(2) } /> */}
+              <AppWidgetUSD title="Team Deposit" total={user.level.amount} icon={'dashicons:money-alt'} chartData={ ((user.level.amount/user.level_amount)*100).toFixed(2) } />
+              <AppWidget title="Total Downline Referrals" total={user.level.members} icon={'eva:person-fill'} color="warning" chartData={ ((user.level.members/user.level_max)*100).toFixed(2) } />
             </Stack>
           </Grid>
         </Grid>
