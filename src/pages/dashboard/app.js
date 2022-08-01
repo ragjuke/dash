@@ -190,7 +190,7 @@ const [isMarking, setIsMarking] = useState(false);
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentPackage txnData={txnData} />
+            {/* <AppCurrentPackage txnData={txnData} /> */}
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
