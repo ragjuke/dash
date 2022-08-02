@@ -37,7 +37,10 @@ export default function AppCurrentPackage( { txnData } ) {
   // console.log(txnData)
 
   const calDay = (x) => {
-    return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(x).getTime() / 1000).toFixed(0)) );
+    // return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(x).getTime() / 1000).toFixed(0)) );
+    return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(Date.parse(x.replace(/[-]/g,'/'))).getTime() / 1000).toFixed(0)) );
+
+    
  }
 
  // Calculates the Number of Days from original package
@@ -168,6 +171,7 @@ export default function AppCurrentPackage( { txnData } ) {
 
 
         <Box style={{ padding: "20px", marginTop: '20px', textAlign: 'center'}}>
+          {console.log(finalDay())}
           {/* {console.log( ( (finalDay()/ (txnData.last_package_helper.time_hours/24).toFixed(2) ).toFixed(2) * 100 ) )} */}
             <Typography >Current Package: <span style={{ color: "#f12d2b" }}>{txnData?.last_package}</span></Typography>
             <Typography >Days so far: <span style={{ color: "#f12d2b" }}>{(txnData.last_package_data && txnData.last_package_helper) ? finalDay() : null}</span></Typography>
