@@ -95,7 +95,9 @@ function ApplicationItem({ usr }) {
       <Stack alignItems="flex-end" sx={{ pr: 3 }}>
         Last Seen
         <Typography variant="caption" sx={{ mt: 0.5, color: 'text.secondary' }}>
-          {fDateTime(last_seen)}
+          {/* {fDateTime(last_seen)} */}
+          { fDateTime(Date.parse(last_seen.replace(/[-]/g,'/'))) }
+
         </Typography>
       </Stack>
     </Stack>
