@@ -38,7 +38,7 @@ export default function AppCurrentPackage( { txnData } ) {
 
   const calDay = (x) => {
     // return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(x).getTime() / 1000).toFixed(0)) );
-    return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(Date.parse(x.replace(/[-]/g,'/'))).getTime() / 1000).toFixed(0)) );
+    return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(Date.parse(x.replace(/[-]/g,'/').replace('Z', ' ').replace('T', ' '))).getTime() / 1000).toFixed(0)) );
 
     
  }
@@ -46,9 +46,13 @@ export default function AppCurrentPackage( { txnData } ) {
  // Calculates the Number of Days from original package
  const finalDay = () => {
 
-    let days = (calDay(txnData.last_package_data.created_at)/86400).toFixed(2);
+  // return txnData.last_package_data;
+
+  if(txnData.last_package_data != undefined){
+
+    let days = (calDay(txnData.last_package_data?.created_at)/86400).toFixed(2);
     
-    let next_due = (calDay(txnData.last_package_data.next_due)/86400).toFixed(2);
+    let next_due = (calDay(txnData.last_package_data?.next_due)/86400).toFixed(2);
 
     // If Next Due is Equal to or greater than zero, return zero
     if(next_due >= 0){
@@ -56,6 +60,10 @@ export default function AppCurrentPackage( { txnData } ) {
     }else{
         return days;
     }
+  }else {
+    return 0;
+  }
+
  }
 
  const finalCalAmount = () =>{
