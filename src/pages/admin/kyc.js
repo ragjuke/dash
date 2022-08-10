@@ -15,6 +15,7 @@ import {
   TableBody,
   TableCell,
   Container,
+  Stack,
   Typography,
   TableContainer,
   TablePagination,
@@ -123,6 +124,12 @@ export default function TransList() {
     setPage(0);
   };
 
+  const changeFilter = (e, filter)=>{
+    e.preventDefault();
+    setFilterName(filter);
+    setPage('1');
+}
+
   // const isNotFound = !filteredUsers.length && Boolean(filterName);
   const isNotFound = true;
 
@@ -158,10 +165,18 @@ export default function TransList() {
                 { name: 'KYC List' },
               ]}
               action={
+                <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} spacing={0.5}>
+
+
+                      <Button size="small" variant="contained" color='info' startIcon={<Iconify icon={'bx:border-all'} />} onClick={e=> changeFilter(e, 'all')} > All </Button>
+                      <Button size="small" variant="contained" color='success' startIcon={<Iconify icon={'icon-park-outline:good-two'} />} onClick={e=> changeFilter(e, 'verified')} > Approved </Button>
+                      <Button size="small" variant="contained" color='warning' startIcon={<Iconify icon={'carbon:pending'} />} onClick={e=> changeFilter(e, 'unverified')} > Pending </Button>
+                      <Button size="small" variant="contained" color='error' startIcon={<Iconify icon={'el:ban-circle'} />} onClick={e=> changeFilter(e, 'rejected')} > Rejected </Button>
                 
-                  <Button variant="contained" startIcon={<Iconify icon={'akar-icons:money'} />} onClick={e => verifyAll(e)} disabled={isLoading} >
-                    Verify All Pending KYCs
-                  </Button>
+                      <Button size="small" variant="contained" color='success' startIcon={<Iconify icon={'ic:outline-gpp-good'} />} onClick={e => verifyAll(e)} disabled={isLoading} >
+                        Verify All Pending KYCs
+                      </Button>
+                </Stack>
                 
               }
             />
@@ -171,6 +186,7 @@ export default function TransList() {
                 numSelected={selected.length}
                 filterName={filterName}
                 onFilterName={handleFilterByName}
+                changeFilter={changeFilter}
               />
 
               <Scrollbar>

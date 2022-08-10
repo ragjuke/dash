@@ -24,7 +24,7 @@ TransListToolbar.propTypes = {
   onDeleteUsers: PropTypes.func,
 };
 
-export default function TransListToolbar({ numSelected, filterName, onFilterName, onDeleteUsers, title }) {
+export default function TransListToolbar({ numSelected, filterName, changeFilter, onDeleteUsers, title }) {
   const theme = useTheme();
 
   const isLight = theme.palette.mode === 'light';
@@ -38,6 +38,24 @@ export default function TransListToolbar({ numSelected, filterName, onFilterName
         }),
       }}
     >
+
+      <form onSubmit={e=>{changeFilter(e, document.getElementById('user').value)}}>
+        <InputStyle
+          stretchStart={240}
+          // onChange={(event) => onFilterName(event.target.value)}
+          
+          name="user"
+          id="user"
+          placeholder="Search user..."
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </form>
       {/* {numSelected > 0 ? (
         <Typography component="div" variant="subtitle1">
           {numSelected} selected

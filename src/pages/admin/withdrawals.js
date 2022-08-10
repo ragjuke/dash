@@ -141,6 +141,9 @@ export default function TransList() {
 const payUser = (e, id, address, amount, reference) => {
   // setisPaying(true);
   e.target.disabled = true;
+// console.log('clicked '+id)
+//   return;
+
   let data = {
     id: id,
     address: address,
@@ -154,7 +157,7 @@ const payUser = (e, id, address, amount, reference) => {
       .then((response) => {
         const { data } = response;
         if (data === 'paid') {
-          enqueueSnackbar('Payment Sent');
+          // enqueueSnackbar('Payment Sent'); //Commented out for now
           // setisPaying(false);
         } else {
           enqueueSnackbar('An Error Occured!');
@@ -207,7 +210,11 @@ const payUser = (e, id, address, amount, reference) => {
 
           // Click all Buttons manually
          let btnArray = document.getElementsByClassName("paybtn");
-         for(var a=0; a<btnArray.length;a++){ btnArray[a].click(); }
+         for(var a=0; a<btnArray.length;a++){ 
+          btnArray[allTrans].click();
+          // setTimeout(()=>{btnArray[0].click(); }, 3000)
+          // setTimeout(()=>{btnArray[1].click(); }, 3000)
+        }
 
     setIsLoading(true);
     setOpen(false);
