@@ -15,9 +15,9 @@ import axios from '../../../../utils/axios';
 
 const USER_OPTIONS = [
   { value: 'kyc', label: 'KYC Verified' },
-  { value: 'banned', label: 'Email Verified' },
+  { value: 'ver_status', label: 'Email Verified' },
   { value: 'paid_status', label: 'Paid Verified' },
-  { value: 'ver_status', label: 'Banned' },
+  { value: 'banned', label: 'Banned' },
 ];
 
 

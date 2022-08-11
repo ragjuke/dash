@@ -157,7 +157,7 @@ const payUser = (e, id, address, amount, reference) => {
       .then((response) => {
         const { data } = response;
         if (data === 'paid') {
-          // enqueueSnackbar('Payment Sent'); //Commented out for now
+          enqueueSnackbar('Payment Sent'); //Commented out for now
           // setisPaying(false);
         } else {
           enqueueSnackbar('An Error Occured!');
