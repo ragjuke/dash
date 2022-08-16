@@ -218,8 +218,32 @@ const [isMarking, setIsMarking] = useState(false);
 
           <Grid item xs={12} md={6} lg={4}>
             <Stack spacing={3}>
-              <AppWidgetUSD title="Team Deposit" total={user.level.amount} icon={'dashicons:money-alt'} chartData={ ((user.level.amount/user.level_amount)*100).toFixed(2) } />
-              <AppWidget title="Total Downline Referrals" total={user.level.members} icon={'eva:person-fill'} color="warning" chartData={ ((user.level.members/user.level_max)*100).toFixed(2) } />
+              {
+            
+              user.level_amount == 0 ?
+                (<AppWidgetUSD title="Team Deposit" total={user.level.amount} icon={'dashicons:money-alt'} chartData={ (0).toFixed(2) } /> )
+                : 
+                user.level.amount > user.level_amount ?
+                (<AppWidgetUSD title="Team Deposit" total={user.level.amount} icon={'dashicons:money-alt'} chartData={ (100).toFixed(2) } /> )
+                :
+                (<AppWidgetUSD title="Team Deposit" total={user.level.amount} icon={'dashicons:money-alt'} chartData={ ((user.level.amount/user.level_amount)*100).toFixed(2) } /> )
+                
+              
+              }
+
+            {
+            
+            user.level_max == 0 ?
+              ( <AppWidget title="Total Downline Referrals" total={user.level.members} icon={'eva:person-fill'} color="warning" chartData={ (0).toFixed(2) } /> )
+              : 
+              user.level.members > user.level_max ?
+              ( <AppWidget title="Total Downline Referrals" total={user.level.members} icon={'eva:person-fill'} color="warning" chartData={ (100).toFixed(2) } /> )
+              :
+              ( <AppWidget title="Total Downline Referrals" total={user.level.members} icon={'eva:person-fill'} color="warning" chartData={ ((user.level.members/user.level_max)*100).toFixed(2) } /> )
+              
+            
+            }
+
             </Stack>
           </Grid>
         </Grid>

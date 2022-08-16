@@ -38,9 +38,7 @@ export default function AppCurrentPackage( { txnData } ) {
 
   const calDay = (x) => {
     // return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(x).getTime() / 1000).toFixed(0)) );
-    return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(Date.parse(x.replace(/[-]/g,'/').replace('Z', ' ').replace('T', ' '))).getTime() / 1000).toFixed(0)) );
-
-    
+    return ( parseInt((new Date().getTime()/1000).toFixed(0)) - parseInt((new Date(Date.parse(x.replace(/[-]/g,'/').replace('.000000Z', ' ').replace('T', ' '))).getTime() / 1000).toFixed(0)) );
  }
 
  // Calculates the Number of Days from original package
