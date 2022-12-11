@@ -15,7 +15,7 @@ import Image from '../../../../components/Image';
 const RootStyle = styled('div')(({ theme }) => ({
   '&:before': {
     // ...cssStyles().bgBlur({ blur: 2, color: theme.palette.primary.darker }),
-    ...cssStyles().bgBlur({ blur: 2, color: '#d10203' }),
+    ...cssStyles().bgBlur({ blur: 2, color: '#2165d1' }),
     top: 0,
     zIndex: 9,
     content: "''",
